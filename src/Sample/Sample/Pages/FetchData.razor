@@ -1,26 +1,9 @@
-# PDFBlazor
-- A pdf viewer and creator for Blazor apps
-- Print the razor content only using this package
-
-## Sample
-
-![](./1.png)
-![](./2.png)
-
-## How to use from sample
-- Inject the service
-```
-  builder.Services.AddSingleton<PDFInterop>();
-```
-
-
-```
-@page "/fetchdata"
+﻿@page "/fetchdata"
 @using PDFBlazor
 @inject HttpClient Http
-<button @onclick="() => CreatorRef.PrintPDF()">Print as pdf</button> // targeting the creation
+<button @onclick="() => CreatorRef.PrintPDF()">Print as pdf</button>
 
-<PDFCreator @ref="CreatorRef"> // the inside content of the pdfCreator will be printed
+<PDFCreator @ref="CreatorRef">
 
     <h1>Weather forecast</h1>
 
@@ -57,10 +40,31 @@
 
     }
 </PDFCreator>
-```
+    @code {
+        private WeatherForecast[] forecasts;
+
+        protected override async Task OnInitializedAsync()
+        {
+            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        }
+
+        public class WeatherForecast
+        {
+            public DateTime Date { get; set; }
+
+            public int TemperatureC { get; set; }
+
+            public string Summary { get; set; }
+
+            public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        }
 
 
+        public PDFCreator CreatorRef { get; set; }
 
+        private Task Print()
+        {
+            return CreatorRef.PrintPDF();
+        }
 
-
-
+    }

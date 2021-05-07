@@ -1,0 +1,24 @@
+﻿@inject PDFInterop pdfInterop
+
+<span id="@Id" class="@Id">
+    @ChildContent
+</span>
+
+
+<style>
+ @@media only print {
+  body { width: 0%; }
+  .@Id { width: 30rem; }
+}
+</style>
+@code {
+    public string Id { get; set; } = Guid.NewGuid().ToString();
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    public async Task PrintPDF()
+    {
+        await pdfInterop.PrintPdf(Id);
+    }
+}
