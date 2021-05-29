@@ -1,5 +1,5 @@
 ﻿@inject PDFInterop pdfInterop
-
+@using Microsoft.AspNetCore.Components
 <span id="@Id" class="@Id">
     @ChildContent
 </span>
@@ -21,4 +21,5 @@
     {
         await pdfInterop.PrintPdf(Id);
     }
+
 }

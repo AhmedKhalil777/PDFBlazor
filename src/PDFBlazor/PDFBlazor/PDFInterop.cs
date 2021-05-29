@@ -18,14 +18,9 @@ namespace PDFBlazor
         public PDFInterop(IJSRuntime jsRuntime)
         {
             moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
-               "import", "./_content/PDFBlazor/pdfMaker.js").AsTask());
+               "import", "./_content/PDFBlazor/pdfCreator.js").AsTask());
         }
 
-        public async ValueTask<string> Prompt(string message)
-        {
-            var module = await moduleTask.Value;
-            return await module.InvokeAsync<string>("showPrompt", message);
-        }
 
         public async ValueTask PrintPdf(string id)
         {
