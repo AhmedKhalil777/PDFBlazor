@@ -8,8 +8,14 @@
 
     <span class="pdf-hide"> Hello I am ahmed khalil</span>
 
-    <SurveyPrompt  Title="How is Blazor working for you?" />
+    <SurveyPrompt Title="How is Blazor working for you?" />
+
+    <canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+    </canvas>
 </PDFBlazor.PDFCreator>
+
+
+
 @code{
     public PDFBlazor.PDFCreator CreatorRef { get; set; }
     private Task Print()
